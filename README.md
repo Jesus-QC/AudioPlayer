@@ -2,6 +2,8 @@
 
 Plays audio
 
+Commands: `audioplayer play/stop <path>`
+
 
 CONVERT AUDIO TO STREAMABLE AUDIO:
 With ffmpeg where AudioFile.wav is your mp3 or wav audio:
