@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{A3C800A1-5234-44D1-AD70-A475922EFB98}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>AudioPlayer</RootNamespace>
+        <AssemblyName>AudioPlayer</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>8</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Lib.Harmony.2.2.1\lib\net472\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Assembly-CSharp-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+          <HintPath>..\..\..\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\CommandSystem.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="DissonanceVoip">
+          <HintPath>..\..\..\Dependencies\DissonanceVoip-Publicized.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.API, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.API.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.Bootstrap, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.Bootstrap.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.CreditTags, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.CreditTags.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.CustomItems, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.CustomItems.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.CustomRoles, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.CustomRoles.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.Events, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.Events.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.Loader, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.Loader.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.Permissions, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.Permissions.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.Updater, Version=3.1.1.0, Culture=neutral, processorArchitecture=Amd64">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.Updater.dll</HintPath>
+        </Reference>
+        <Reference Include="Mirror">
+          <HintPath>..\..\..\Dependencies\Mirror.dll</HintPath>
+        </Reference>
+        <Reference Include="NorthwoodLib, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\EXILED.5.2.1\lib\net472\NorthwoodLib.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+        <Reference Include="UnityEngine">
+          <HintPath>..\..\..\Dependencies\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+          <HintPath>..\..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="API\AudioController.cs" />
+        <Compile Include="Config.cs" />
+        <Compile Include="Core\Commands\Main.cs" />
+        <Compile Include="Core\Commands\Play.cs" />
+        <Compile Include="Core\Commands\Stop.cs" />
+        <Compile Include="Core\Commands\Test.cs" />
+        <Compile Include="Core\Components\CustomMicrophone.cs" />
+        <Compile Include="Core\Events\CustomEvents.cs" />
+        <Compile Include="AudioPlayer.cs" />
+        <Compile Include="Patches\RunDissonanceAsHost.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>
