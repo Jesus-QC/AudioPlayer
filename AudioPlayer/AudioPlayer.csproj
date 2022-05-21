@@ -101,6 +101,9 @@
         <Reference Include="UnityEngine.UnityWebRequestModule">
           <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+          <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="API\AudioController.cs" />

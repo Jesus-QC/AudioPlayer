@@ -11,7 +11,7 @@ namespace AudioPlayer
         public override string Author { get; } = "Jesus-QC";
         public override string Name { get; } = "AudioPlayer";
         public override string Prefix { get; } = "audio_player";
-        public override Version Version { get; } = new Version(1, 0, 0);
+        public override Version Version { get; } = new Version(1, 0, 1);
         public override Version RequiredExiledVersion { get; } = new Version(5, 2, 1);
 
         public static AudioPlayer Singleton;

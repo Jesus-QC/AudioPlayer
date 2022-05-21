@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.IO;
 using AudioPlayer.API;
@@ -17,15 +17,13 @@ namespace AudioPlayer.Core.Components
         public bool IsRecording { get; private set; }
         public TimeSpan Latency { get; private set; }
 
-        public string path;
-        
-        private AudioClip _clip;
+        public AudioClip clip;
 
         private readonly List<IMicrophoneSubscriber> _subscribers = new List<IMicrophoneSubscriber>();
 
         private WaveFormat _format = new WaveFormat(44100, 1);
         private readonly float[] _frame = new float[sizeof(int)];
-        private readonly byte[] _frameBytes = new byte[960 * 4];
+        private int _frameCount = 16 * 4;
         
         private float _elapsedTime;
         private int _offset;
@@ -35,34 +33,14 @@ namespace AudioPlayer.Core.Components
             Log.Debug("Starting capture.", AudioPlayer.Singleton.Config.ShowDebugLogs);
 
             AudioController.Comms._capture._network = AudioController.Comms._net;
-
-            try
-            {
-                using (var w = UnityWebRequestMultimedia.GetAudioClip($"file://{path}", AudioType.AUDIOQUEUE))
-
-                {
-                    ((DownloadHandlerAudioClip) w.downloadHandler).streamAudio = true;
-
-                    w.SendWebRequest();
-
-                    var d = ((DownloadHandlerAudioClip) w.downloadHandler);
-
-                    var clip = d.audioClip;
-                    clip.LoadAudioData();
-                    Log.Info($"{clip.name} {clip.frequency} {clip.channels} {clip.length} {clip.samples} {clip.ambisonic}");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-                throw;
-            }
-                
-            //clip.SetData()
-            //clip.LoadAudioData();
-            //clip.GetData(_frame, 0);
             
-            //_format = new WaveFormat(clip.frequency, _format._channels);
+            Log.Info(_frame.Length);
+            
+            Log.Info($"{clip.name}, {clip.frequency}, {clip.samples}, {clip.length}, {clip.channels}" );
+            
+            clip.GetData(_frame, 0);
+            
+            _frameCount = clip.samples;
             
             IsRecording = true;
             Latency = TimeSpan.Zero;
@@ -87,17 +65,16 @@ namespace AudioPlayer.Core.Components
         { 
             _elapsedTime += Time.unscaledDeltaTime;
 
-            Log.Info(_subscribers.Count);
+            //Log.Info(_subscribers.Count);
             
             while (_elapsedTime > 0.02f)
             {
                 _elapsedTime -= 0.02f;
                 
                 foreach (var subscriber in _subscribers)
-                    subscriber.ReceiveMicrophoneData(new ArraySegment<float>(_frame, _offset, 960), _format);
+                    subscriber.ReceiveMicrophoneData(new ArraySegment<float>(_frame, _offset, _frameCount), _format);
                 
-                _offset += 960;
-                
+                _offset += _frameCount;
             }
 
             /*if (File.Position != File.Length) 
@@ -106,9 +83,9 @@ namespace AudioPlayer.Core.Components
             if (AudioController.LoopMusic)
                 File.Position = 0;
             else
-                AudioController.Stop();*/
+                AudioController.Stop();//*
 
             return false;
         }
     }
-}
+}*/
