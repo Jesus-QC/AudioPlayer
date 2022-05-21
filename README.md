@@ -2,7 +2,7 @@
 
 Plays audio
 
-Commands: `audioplayer play/stop <path>`
+Commands: `audioplayer play/stop <fullpath>`
 
 
 CONVERT AUDIO TO STREAMABLE AUDIO:
