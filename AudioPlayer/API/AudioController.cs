@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using AudioPlayer.Core.Components;
 using Dissonance;
 using Dissonance.Integrations.MirrorIgnorance;
-using Mirror;
 using UnityEngine;
 using Log = Exiled.API.Features.Log;
 
@@ -12,8 +10,7 @@ namespace AudioPlayer.API
 {
     public static class AudioController
     {
-        private static DissonanceComms _comms;
-        public static DissonanceComms Comms => _comms ??= Object.FindObjectOfType<DissonanceComms>();
+        public static DissonanceComms Comms => Radio.comms;
 
         public static bool AutomaticMusic = false;
         public static bool LoopMusic = false;
@@ -33,11 +30,10 @@ namespace AudioPlayer.API
 
             var newMic = Comms.gameObject.AddComponent<CustomMicrophone>();
             newMic.File = File.OpenRead(path);
-
+            
             Comms._capture._microphone = newMic;
             Comms.ResetMicrophoneCapture();
-
-            RefreshChannels();
+            Comms.IsMuted = false;
 
             AutomaticMusic = automatic;
             LoopMusic = loop;
@@ -47,22 +43,13 @@ namespace AudioPlayer.API
         {
             if (!Comms.gameObject.TryGetComponent<CustomMicrophone>(out var oldMic)) 
                 return;
-
+            
             oldMic.StopCapture();
             Object.Destroy(oldMic);
             
             Log.Debug("Stopped and destroyed the mic.", AudioPlayer.Singleton.Config.ShowDebugLogs);
         }
-        
-        public static void RefreshChannels()
-        {
-            foreach (var player in Comms.Players)
-            {
-                Log.Info(player._name);
-                Comms.PlayerChannels.Open(player._name);
-            }
-        }
-        
+
         public static void OnPlayerJoinedSession(VoicePlayerState player)
         {
             Log.Debug($"A player joined the session. ({player.Name})", AudioPlayer.Singleton.Config.ShowDebugLogs);

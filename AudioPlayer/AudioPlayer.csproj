@@ -89,8 +89,17 @@
         <Reference Include="UnityEngine">
           <HintPath>..\..\..\Dependencies\UnityEngine.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+          <HintPath>..\..\..\Dependencies\UnityEngine.AudioModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.CoreModule">
           <HintPath>..\..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+          <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestModule">
+          <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -99,8 +108,9 @@
         <Compile Include="Core\Commands\Main.cs" />
         <Compile Include="Core\Commands\Play.cs" />
         <Compile Include="Core\Commands\Stop.cs" />
-        <Compile Include="Core\Commands\Test.cs" />
+        <Compile Include="Core\Commands\Loop.cs" />
         <Compile Include="Core\Components\CustomMicrophone.cs" />
+        <Compile Include="Core\Components\CustomWavMicrophone.cs" />
         <Compile Include="Core\Events\CustomEvents.cs" />
         <Compile Include="AudioPlayer.cs" />
         <Compile Include="Patches\RunDissonanceAsHost.cs" />

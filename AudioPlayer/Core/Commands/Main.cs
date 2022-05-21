@@ -12,12 +12,12 @@ namespace AudioPlayer.Core.Commands
         {
             RegisterCommand(Play.Instance);
             RegisterCommand(Stop.Instance);
-            RegisterCommand(Test.Instance);
+            RegisterCommand(Loop.Instance);
         }
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            response = "Please, specify a subcommand (play, stop)";
+            response = "Please, specify a subcommand (play, stop, loop)";
             return false;
         }
 

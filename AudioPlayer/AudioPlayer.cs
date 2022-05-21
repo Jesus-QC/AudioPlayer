@@ -30,8 +30,8 @@ namespace AudioPlayer
 
             Exiled.Events.Handlers.Server.RestartingRound += _events.OnRestartingRound;
             Exiled.Events.Handlers.Server.WaitingForPlayers += _events.OnWaitingForPlayers;
-            Exiled.Events.Handlers.Server.RoundStarted += _events.OnStarting;
-            //Exiled.Events.Handlers.Server.RespawningTeam += _events.OnRespawningTeam;
+            Exiled.Events.Handlers.Server.RoundStarted += _events.OnStarted;
+            Exiled.Events.Handlers.Server.RespawningTeam += _events.OnRespawningTeam;
             
             base.OnEnabled();
         }
@@ -45,8 +45,8 @@ namespace AudioPlayer
 
             Exiled.Events.Handlers.Server.RestartingRound -= _events.OnRestartingRound;
             Exiled.Events.Handlers.Server.WaitingForPlayers -= _events.OnWaitingForPlayers;
-            Exiled.Events.Handlers.Server.RoundStarted -= _events.OnStarting;
-            //Exiled.Events.Handlers.Server.RespawningTeam -= _events.OnRespawningTeam;
+            Exiled.Events.Handlers.Server.RoundStarted -= _events.OnStarted;
+            Exiled.Events.Handlers.Server.RespawningTeam -= _events.OnRespawningTeam;
             
             _events = null;
             
