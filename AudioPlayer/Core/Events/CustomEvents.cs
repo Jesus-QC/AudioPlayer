@@ -40,10 +40,10 @@ namespace AudioPlayer.Core.Events
             switch (ev.NextKnownTeam)
             {
                 case SpawnableTeamType.ChaosInsurgency:
-                    path = AudioPlayer.Singleton.Config.MtfSpawnMusic;
+                    path = AudioPlayer.Singleton.Config.ChaosSpawnMusic;
                     break;
                 case SpawnableTeamType.NineTailedFox:
-                    path = AudioPlayer.Singleton.Config.ChaosSpawnMusic;
+                    path = AudioPlayer.Singleton.Config.MtfSpawnMusic;
                     break;
             }
             
