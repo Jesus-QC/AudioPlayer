@@ -23,7 +23,6 @@ namespace AudioPlayer.Core.Events
             Server.Host.Radio.Network_syncPrimaryVoicechatButton = true;
             Server.Host.DissonanceUserSetup.NetworkspeakingFlags = SpeakingFlags.IntercomAsHuman;
             
-            AudioController.Comms.RoomChannels.Open("Null", false, ChannelPriority.High);
             AudioController.PlayFromFile(AudioPlayer.Singleton.Config.LobbyMusic, true, true);
         }
 
