@@ -1,0 +1,1 @@
+start ffmpeg.exe -re -i input.mp3 -f f32le -ar 48000 -ac 1 output.raw
