@@ -8,10 +8,12 @@ audioplayer.play
 audioplayer.stop
 audioplayer.loop
 ```
-CONVERSION PARAMETTERS
-```
-ffmpeg.exe -re -i AudioFile.wav -f f32le -ar 48000 -ac 1 output.raw
-```
+# CONVERSION
+- Download FFmpeg
+- Put the bat files in the same directory as ``FFmpeg.exe``
+- Change the name of the audio to ``input`` and put it in aforementioned directory
+- Just click the ``Mp3Convert`` or ``WavConvert`` depends on the format
+- Profit
 
 https://user-images.githubusercontent.com/69375249/169658941-9631975f-9dc4-4137-83bf-f489ab2bd0b7.mp4
 
