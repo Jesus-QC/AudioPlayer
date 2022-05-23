@@ -18,7 +18,7 @@ namespace AudioPlayer
         public override Version RequiredExiledVersion { get; } = new Version(5, 2, 1);
 
         public static AudioPlayer Singleton;
-        public static string AudioPath { get; } = Path.Combine(Paths.Configs, "AudioPlayer-ConvertedAudio");
+        public static string AudioPath { get; } = Path.Combine(Paths.Configs, $"AudioPlayer-ConvertedAudio-{Server.Port}");
 
         private Harmony _harmony;
         private CustomEvents _events;
