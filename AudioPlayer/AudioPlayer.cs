@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using Exiled.API.Features;
 using HarmonyLib;
 using AudioPlayer.API;
 using AudioPlayer.Core.Events;
+using Xabe.FFmpeg;
 
 namespace AudioPlayer
 {
@@ -15,6 +18,7 @@ namespace AudioPlayer
         public override Version RequiredExiledVersion { get; } = new Version(5, 2, 1);
 
         public static AudioPlayer Singleton;
+        public static string AudioPath { get; } = Path.Combine(Paths.Configs, "AudioPlayer-ConvertedAudio");
 
         private Harmony _harmony;
         private CustomEvents _events;
@@ -32,7 +36,16 @@ namespace AudioPlayer
             Exiled.Events.Handlers.Server.WaitingForPlayers += _events.OnWaitingForPlayers;
             Exiled.Events.Handlers.Server.RoundStarted += _events.OnStarted;
             Exiled.Events.Handlers.Server.RespawningTeam += _events.OnRespawningTeam;
-            
+
+            if (Config.UseFFmpegConverter && Directory.Exists(Config.FFmpegPath))
+            {
+                FFmpeg.SetExecutablesPath(Config.FFmpegPath);
+                if (!Directory.Exists(AudioPath))
+                    Directory.CreateDirectory(AudioPath);
+                foreach (string file in Directory.GetFiles(AudioPath))
+                    File.Delete(file);
+            }
+
             base.OnEnabled();
         }
 
