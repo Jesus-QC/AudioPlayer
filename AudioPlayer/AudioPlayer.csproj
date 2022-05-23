@@ -41,13 +41,13 @@
           <HintPath>..\packages\EXILED.5.2.1\lib\net472\Assembly-CSharp-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath>..\..\..\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>..\packages\EXILED.5.2.1\lib\net472\CommandSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="DissonanceVoip">
-          <HintPath>..\..\..\Dependencies\DissonanceVoip-Publicized.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\DissonanceVoip-Publicized.dll</HintPath>
         </Reference>
         <Reference Include="Exiled.API, Version=5.2.1.0, Culture=neutral, processorArchitecture=Amd64">
           <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.API.dll</HintPath>
@@ -77,7 +77,7 @@
           <HintPath>..\packages\EXILED.5.2.1\lib\net472\Exiled.Updater.dll</HintPath>
         </Reference>
         <Reference Include="Mirror">
-          <HintPath>..\..\..\Dependencies\Mirror.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\Mirror.dll</HintPath>
         </Reference>
         <Reference Include="NorthwoodLib, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
           <HintPath>..\packages\EXILED.5.2.1\lib\net472\NorthwoodLib.dll</HintPath>
@@ -87,22 +87,22 @@
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
         <Reference Include="UnityEngine">
-          <HintPath>..\..\..\Dependencies\UnityEngine.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AudioModule">
-          <HintPath>..\..\..\Dependencies\UnityEngine.AudioModule.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>..\..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-          <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UnityWebRequestModule">
-          <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestModule.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\UnityEngine.UnityWebRequestModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-          <HintPath>..\..\..\Dependencies\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+          <HintPath>$(EXILED_REFERENCES)\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
