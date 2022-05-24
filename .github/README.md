@@ -1,6 +1,6 @@
-# AudioPlayer [TESTING]
+# AudioPlayer
 
-Plays audio
+ExiledSL mod that plays audio.
 
 Permissions:
 ```
