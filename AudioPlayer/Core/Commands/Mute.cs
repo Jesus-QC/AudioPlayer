@@ -22,12 +22,14 @@ namespace AudioPlayer.Core.Commands
                 return false;
             }
 
-            if (AudioController.MutedPlayers.Contains(ply.Radio.mirrorIgnorancePlayer._playerId))
+            bool mute = AudioController.MutedPlayers.Contains(ply.Radio.mirrorIgnorancePlayer._playerId);
+            
+            if (mute)
                 UnmutePlayer(ply);
             else
                 MutePlayer(ply);
 
-            response = "Server audio muted = ";
+            response = $"Server audio muted = {mute}";
             return true;
         }
 
