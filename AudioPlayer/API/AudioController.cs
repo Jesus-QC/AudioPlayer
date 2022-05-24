@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using AudioPlayer.Core.Components;
+using AudioPlayer.Core.Structures;
 using Dissonance;
 using Dissonance.Integrations.MirrorIgnorance;
 using MEC;
@@ -18,8 +19,8 @@ namespace AudioPlayer.API
         
         public static bool AutomaticMusic = false;
         public static bool LoopMusic = false;
-        
-        public static IEnumerator<float> PlayFromFile(string path, bool loop = false, bool automatic = false)
+
+        public static IEnumerator<float> PlayFromFile(string path, int volume = 100, bool loop = false, bool automatic = false)
         {
             if(string.IsNullOrWhiteSpace(path))
                 yield break;

@@ -2,7 +2,6 @@
 using AudioPlayer.API;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
-using MEC;
 using Respawning;
 
 namespace AudioPlayer.Core.Events
@@ -26,7 +25,7 @@ namespace AudioPlayer.Core.Events
             Server.Host.Radio.Network_syncPrimaryVoicechatButton = true;
             Server.Host.DissonanceUserSetup.NetworkspeakingFlags = SpeakingFlags.IntercomAsHuman;
 
-            Timing.RunCoroutine(AudioController.PlayFromFile(AudioPlayer.Singleton.Config.LobbyMusic, true, true));
+            AudioPlayer.Singleton.Config.LobbyMusic.Play(true, true);
         }
 
         public void OnStarted()
@@ -37,19 +36,15 @@ namespace AudioPlayer.Core.Events
 
         public void OnRespawningTeam(RespawningTeamEventArgs ev)
         {
-            string path = "";
-            
             switch (ev.NextKnownTeam)
             {
                 case SpawnableTeamType.ChaosInsurgency:
-                    path = AudioPlayer.Singleton.Config.ChaosSpawnMusic;
+                    AudioPlayer.Singleton.Config.ChaosSpawnMusic.Play(true, true);
                     break;
                 case SpawnableTeamType.NineTailedFox:
-                    path = AudioPlayer.Singleton.Config.MtfSpawnMusic;
+                    AudioPlayer.Singleton.Config.MtfSpawnMusic.Play(true, true);
                     break;
             }
-
-            Timing.RunCoroutine(AudioController.PlayFromFile(path, false, true));
         }
     }
 }

@@ -116,6 +116,7 @@
         <Compile Include="Core\Components\CustomMpegMicrophone.cs" />
         <Compile Include="Core\Events\CustomEvents.cs" />
         <Compile Include="AudioPlayer.cs" />
+        <Compile Include="Core\Structures\AudioFile.cs" />
         <Compile Include="NLayer\Decoder\BitReservoir.cs" />
         <Compile Include="NLayer\Decoder\FrameBase.cs" />
         <Compile Include="NLayer\Decoder\Huffman.cs" />

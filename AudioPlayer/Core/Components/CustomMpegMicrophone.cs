@@ -86,7 +86,7 @@ namespace AudioPlayer.Core.Components
             if (stop)
                 return true;
             
-            if (File.Time.Ticks * 2 != File.Duration.Ticks) 
+            if (File.Time.Ticks * 2 < File.Duration.Ticks) 
                 return false;
             
             if (AudioController.LoopMusic)

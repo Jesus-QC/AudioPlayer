@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using AudioPlayer.Core.Structures;
 using Exiled.API.Features;
 using Exiled.API.Interfaces;
 
@@ -12,10 +14,11 @@ namespace AudioPlayer
         
         [Description("EXPERIMENTAL: Can cause issues. (Leave blank for default)")]
         public string AudioName { get; set; } = null;
-        
+
         [Description("Special Events Automatic Music, blank to disable.")]
-        public string LobbyMusic { get; set; } = Path.Combine(Paths.Configs, "Audios", "lobby.mp3");
-        public string MtfSpawnMusic { get; set; } = Path.Combine(Paths.Configs, "Audios", "mtf.mp3");
-        public string ChaosSpawnMusic { get; set; } = Path.Combine(Paths.Configs, "Audios", "chaos.mp3");
+        public AudioFile LobbyMusic { get; set; } = new AudioFile();
+        
+        public AudioFile MtfSpawnMusic { get; set; } = new AudioFile();
+        public AudioFile ChaosSpawnMusic { get; set; } = new AudioFile();
     }
 }
