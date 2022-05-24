@@ -20,7 +20,7 @@ namespace AudioPlayer.Core.Events
             AudioController.Comms.OnPlayerJoinedSession += AudioController.OnPlayerJoinedSession;
             AudioController.Comms.OnPlayerLeftSession += AudioController.OnPlayerLeftSession;
 
-            if(!string.IsNullOrWhiteSpace(AudioPlayer.Singleton.Config.AudioName))
+            if (!string.IsNullOrWhiteSpace(AudioPlayer.Singleton.Config.AudioName))
                 Server.Host.ReferenceHub.nicknameSync.Network_myNickSync = AudioPlayer.Singleton.Config.AudioName;
             
             Server.Host.Radio.Network_syncPrimaryVoicechatButton = true;
@@ -48,8 +48,8 @@ namespace AudioPlayer.Core.Events
                     path = AudioPlayer.Singleton.Config.MtfSpawnMusic;
                     break;
             }
-            
-            AudioController.PlayFromFile(path, false, true);
+
+            Timing.RunCoroutine(AudioController.PlayFromFile(path, false, true));
         }
     }
 }
