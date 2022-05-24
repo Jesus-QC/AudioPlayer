@@ -113,7 +113,6 @@
         <Compile Include="Core\Commands\Stop.cs" />
         <Compile Include="Core\Commands\Loop.cs" />
         <Compile Include="Core\Components\CustomMicrophone.cs" />
-        <Compile Include="Core\Components\CustomWavMicrophone.cs" />
         <Compile Include="Core\Events\CustomEvents.cs" />
         <Compile Include="AudioPlayer.cs" />
         <Compile Include="Patches\RunDissonanceAsHost.cs" />

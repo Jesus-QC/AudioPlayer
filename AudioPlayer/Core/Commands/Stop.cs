@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using AudioPlayer.API;
 using CommandSystem;
 using Exiled.Permissions.Extensions;
