@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AudioPlayer.Core.Components;
 using Dissonance;
 using Dissonance.Integrations.MirrorIgnorance;
+using MEC;
+using NLayer;
 using UnityEngine;
 using Log = Exiled.API.Features.Log;
 
@@ -11,27 +14,34 @@ namespace AudioPlayer.API
     public static class AudioController
     {
         public static DissonanceComms Comms => Radio.comms;
-
+        public static CustomMpegMicrophone Microphone;
+        
         public static bool AutomaticMusic = false;
         public static bool LoopMusic = false;
         
-        public static void PlayFromFile(string path, bool loop = false, bool automatic = false)
+        public static IEnumerator<float> PlayFromFile(string path, bool loop = false, bool automatic = false)
         {
             if(string.IsNullOrWhiteSpace(path))
-                return;
+                yield break;
             
             if (!File.Exists(path))
             {
                 Log.Error($"Error trying to play: {path}. File not found.");
-                return;
+                yield break;
             }
             
             Stop();
 
-            var newMic = Comms.gameObject.AddComponent<CustomMicrophone>();
-            newMic.File = File.OpenRead(path);
+            yield return Timing.WaitForOneFrame;
+            yield return Timing.WaitForOneFrame;
+
+            if (Microphone is null)
+                AddMic();
             
-            Comms._capture._microphone = newMic;
+            Microphone!.File = new MpegFile(path);
+            Microphone.stop = false;
+
+            Comms._capture._microphone = Microphone;
             Comms.ResetMicrophoneCapture();
             Comms.IsMuted = false;
 
@@ -41,13 +51,12 @@ namespace AudioPlayer.API
 
         public static void Stop()
         {
-            if (!Comms.gameObject.TryGetComponent<CustomMicrophone>(out var oldMic)) 
+            if(Microphone is null)
                 return;
+
+            Microphone.stop = true;
             
-            oldMic.StopCapture();
-            Object.Destroy(oldMic);
-            
-            Log.Debug("Stopped and destroyed the mic.", AudioPlayer.Singleton.Config.ShowDebugLogs);
+            Log.Debug("Stopped the mic.", AudioPlayer.Singleton.Config.ShowDebugLogs);
         }
 
         public static void OnPlayerJoinedSession(VoicePlayerState player)
@@ -61,5 +70,7 @@ namespace AudioPlayer.API
         {
             Log.Debug($"A player left the session. ({player.Name})", AudioPlayer.Singleton.Config.ShowDebugLogs);
         }
+        
+        public static void AddMic() => Microphone = Comms.gameObject.AddComponent<CustomMpegMicrophone>();
     }
 }

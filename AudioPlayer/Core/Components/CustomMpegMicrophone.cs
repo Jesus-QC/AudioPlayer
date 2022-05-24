@@ -1,38 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using AudioPlayer.API;
 using Dissonance.Audio.Capture;
-using Exiled.API.Features;
 using NAudio.Wave;
+using NLayer;
 using UnityEngine;
+using Log = Exiled.API.Features.Log;
 
 namespace AudioPlayer.Core.Components
 {
     // Streaming audio as a fake microphone.
     // https://placeholder-software.co.uk/dissonance/docs/Tutorials/Custom-Microphone-Capture.html#step-4-file-streaming
-    [Obsolete("This one needs raw audio to work. Use CustomMpegMicrophone.", false)]
-    public class CustomMicrophone : MonoBehaviour, IMicrophoneCapture
+    public class CustomMpegMicrophone : MonoBehaviour, IMicrophoneCapture
     {
         public bool IsRecording { get; private set; }
         public TimeSpan Latency { get; private set; }
         
-        public FileStream File;
+        public MpegFile File;
+        public bool stop;
         
         private readonly List<IMicrophoneSubscriber> _subscribers = new List<IMicrophoneSubscriber>();
 
-        private readonly WaveFormat _format = new WaveFormat(48000, 1);
-        private readonly float[] _frame = new float[960];
-        private readonly byte[] _frameBytes = new byte[960 * 4];
+        private WaveFormat _format = new WaveFormat(44100, 1);
+        private readonly float[] _frame = new float[980];
+        private readonly byte[] _frameBytes = new byte[980 * 4];
         
         private float _elapsedTime;
 
         public WaveFormat StartCapture(string micName)
         {
-            Log.Debug("Starting capture.", AudioPlayer.Singleton.Config.ShowDebugLogs);
-
-            AudioController.Comms._capture._network = AudioController.Comms._net;
+            if (stop)
+                return null;
             
+            Log.Debug("Starting capture.", AudioPlayer.Singleton.Config.ShowDebugLogs);
+            Log.Debug($"Mic details: {File.SampleRate}hz ({File.Channels} channels) {File.Duration}", AudioPlayer.Singleton.Config.ShowDebugLogs);
+            
+            AudioController.Comms._capture._network = AudioController.Comms._net;
+
+            File.StereoMode = StereoMode.DownmixToMono;
+            _format = new WaveFormat(File.SampleRate, 1);
+
             IsRecording = true;
             Latency = TimeSpan.Zero;
             return _format;
@@ -42,6 +50,8 @@ namespace AudioPlayer.Core.Components
         {
             Log.Debug("Stopping capture.", AudioPlayer.Singleton.Config.ShowDebugLogs);
 
+            IsRecording = false;
+            
             if (File == null)
                 return;
             
@@ -56,12 +66,12 @@ namespace AudioPlayer.Core.Components
         {
             _elapsedTime += Time.unscaledDeltaTime;
 
-            while (_elapsedTime > 0.02f)
+            while (_elapsedTime > 0.022f)
             {
-                _elapsedTime -= 0.02f;
-
+                _elapsedTime -= 0.022f;
+                
                 // Read bytes from file
-                var readLength = File.Read(_frameBytes, 0, _frameBytes.Length);
+                var readLength = File.ReadSamples(_frameBytes, 0, _frameBytes.Length);
 
                 // Zero the entire buffer so bits not written to will be silent
                 Array.Clear(_frame, 0, _frame.Length);
@@ -73,13 +83,16 @@ namespace AudioPlayer.Core.Components
                     subscriber.ReceiveMicrophoneData(new ArraySegment<float>(_frame), _format);
             }
 
-            if (File.Position != File.Length) 
+            if (stop)
+                return true;
+            
+            if (File.Time.Ticks * 2 != File.Duration.Ticks) 
                 return false;
-
+            
             if (AudioController.LoopMusic)
                 File.Position = 0;
             else
-                AudioController.Stop();
+                return true;
 
             return false;
         }

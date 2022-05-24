@@ -9,9 +9,13 @@ namespace AudioPlayer
     {
         public bool IsEnabled { get; set; } = true;
         public bool ShowDebugLogs { get; set; } = false;
+        
+        [Description("EXPERIMENTAL: Can cause issues. (Leave blank for default)")]
+        public string AudioName { get; set; } = null;
+        
         [Description("Special Events Automatic Music, blank to disable.")]
-        public string LobbyMusic { get; set; } = Path.Combine(Paths.Configs, "lobby.mp3");
-        public string MtfSpawnMusic { get; set; } = Path.Combine(Paths.Configs, "mtf.mp3");
-        public string ChaosSpawnMusic { get; set; } = Path.Combine(Paths.Configs, "chaos.mp3");
+        public string LobbyMusic { get; set; } = Path.Combine(Paths.Configs, "Audios", "lobby.mp3");
+        public string MtfSpawnMusic { get; set; } = Path.Combine(Paths.Configs, "Audios", "mtf.mp3");
+        public string ChaosSpawnMusic { get; set; } = Path.Combine(Paths.Configs, "Audios", "chaos.mp3");
     }
 }

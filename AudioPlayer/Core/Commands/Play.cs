@@ -4,6 +4,7 @@ using System.Linq;
 using AudioPlayer.API;
 using CommandSystem;
 using Exiled.Permissions.Extensions;
+using MEC;
 
 namespace AudioPlayer.Core.Commands
 {
@@ -29,11 +30,11 @@ namespace AudioPlayer.Core.Commands
 
             if (!File.Exists(path))
             {
-                response = $"The provided path doesn't exist.\nPath: {path}";
+                response = $"No files exist inside that path.\nPath: {path}";
                 return false;
             }
             
-            AudioController.PlayFromFile(path);
+            Timing.RunCoroutine(AudioController.PlayFromFile(path));
             response = "Playing...";
             return true;
         }

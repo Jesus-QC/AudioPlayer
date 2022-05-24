@@ -3,6 +3,7 @@ using Exiled.API.Features;
 using HarmonyLib;
 using AudioPlayer.API;
 using AudioPlayer.Core.Events;
+using Exiled.API.Enums;
 
 namespace AudioPlayer
 {
@@ -11,7 +12,8 @@ namespace AudioPlayer
         public override string Author { get; } = "Jesus-QC";
         public override string Name { get; } = "AudioPlayer";
         public override string Prefix { get; } = "audio_player";
-        public override Version Version { get; } = new Version(1, 0, 1);
+        public override PluginPriority Priority { get; } = PluginPriority.High;
+        public override Version Version { get; } = new Version(1, 0, 2);
         public override Version RequiredExiledVersion { get; } = new Version(5, 2, 1);
 
         public static AudioPlayer Singleton;

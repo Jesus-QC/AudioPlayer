@@ -113,8 +113,26 @@
         <Compile Include="Core\Commands\Stop.cs" />
         <Compile Include="Core\Commands\Loop.cs" />
         <Compile Include="Core\Components\CustomMicrophone.cs" />
+        <Compile Include="Core\Components\CustomMpegMicrophone.cs" />
         <Compile Include="Core\Events\CustomEvents.cs" />
         <Compile Include="AudioPlayer.cs" />
+        <Compile Include="NLayer\Decoder\BitReservoir.cs" />
+        <Compile Include="NLayer\Decoder\FrameBase.cs" />
+        <Compile Include="NLayer\Decoder\Huffman.cs" />
+        <Compile Include="NLayer\Decoder\ID3Frame.cs" />
+        <Compile Include="NLayer\Decoder\LayerDecoderBase.cs" />
+        <Compile Include="NLayer\Decoder\LayerIDecoder.cs" />
+        <Compile Include="NLayer\Decoder\LayerIIDecoder.cs" />
+        <Compile Include="NLayer\Decoder\LayerIIDecoderBase.cs" />
+        <Compile Include="NLayer\Decoder\LayerIIIDecoder.cs" />
+        <Compile Include="NLayer\Decoder\MpegFrame.cs" />
+        <Compile Include="NLayer\Decoder\MpegStreamReader.cs" />
+        <Compile Include="NLayer\Decoder\RiffHeaderFrame.cs" />
+        <Compile Include="NLayer\Decoder\VBRInfo.cs" />
+        <Compile Include="NLayer\Enums.cs" />
+        <Compile Include="NLayer\IMpegFrame.cs" />
+        <Compile Include="NLayer\MpegFile.cs" />
+        <Compile Include="NLayer\MpegFrameDecoder.cs" />
         <Compile Include="Patches\RunDissonanceAsHost.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
