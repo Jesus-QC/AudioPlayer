@@ -3,7 +3,7 @@ using CommandSystem;
 
 namespace AudioPlayer.Core.Commands
 {
-    [CommandHandler(typeof(RemoteAdminCommandHandler)), CommandHandler(typeof(GameConsoleCommandHandler))]
+    [CommandHandler(typeof(RemoteAdminCommandHandler)), CommandHandler(typeof(GameConsoleCommandHandler)), CommandHandler(typeof(ClientCommandHandler))]
     public class Main : ParentCommand
     {
         public Main() => LoadGeneratedCommands();
@@ -13,6 +13,8 @@ namespace AudioPlayer.Core.Commands
             RegisterCommand(Play.Instance);
             RegisterCommand(Stop.Instance);
             RegisterCommand(Loop.Instance);
+            RegisterCommand(Volume.Instance);
+            RegisterCommand(Mute.Instance);
         }
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)

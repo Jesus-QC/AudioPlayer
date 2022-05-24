@@ -27,19 +27,21 @@ namespace AudioPlayer.Core.Components
         private readonly byte[] _frameBytes = new byte[980 * 4];
         
         private float _elapsedTime;
-
+        private long _duration;
+        
         public WaveFormat StartCapture(string micName)
         {
             if (stop)
                 return null;
             
             Log.Debug("Starting capture.", AudioPlayer.Singleton.Config.ShowDebugLogs);
-            Log.Debug($"Mic details: {File.SampleRate}hz ({File.Channels} channels) {File.Duration}", AudioPlayer.Singleton.Config.ShowDebugLogs);
+            Log.Debug($"Mic details: {File.SampleRate}hz ({File.Channels} channels) {File.Duration} Volume: {AudioController.Volume}", AudioPlayer.Singleton.Config.ShowDebugLogs);
             
             AudioController.Comms._capture._network = AudioController.Comms._net;
 
             File.StereoMode = StereoMode.DownmixToMono;
             _format = new WaveFormat(File.SampleRate, 1);
+            _duration = File.Duration.Ticks - 10000;
 
             IsRecording = true;
             Latency = TimeSpan.Zero;
@@ -85,8 +87,8 @@ namespace AudioPlayer.Core.Components
 
             if (stop)
                 return true;
-            
-            if (File.Time.Ticks * 2 < File.Duration.Ticks) 
+
+            if (File.Time.Ticks * 2 < _duration) 
                 return false;
             
             if (AudioController.LoopMusic)

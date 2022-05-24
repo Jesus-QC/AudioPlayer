@@ -19,8 +19,11 @@ namespace AudioPlayer.API
         
         public static bool AutomaticMusic = false;
         public static bool LoopMusic = false;
+        public static float Volume = 1;
 
-        public static IEnumerator<float> PlayFromFile(string path, int volume = 100, bool loop = false, bool automatic = false)
+        public static readonly List<string> MutedPlayers = new List<string>();
+
+        public static IEnumerator<float> PlayFromFile(string path, float volume = 100, bool loop = false, bool automatic = false)
         {
             if(string.IsNullOrWhiteSpace(path))
                 yield break;
@@ -35,6 +38,9 @@ namespace AudioPlayer.API
 
             yield return Timing.WaitForOneFrame;
             yield return Timing.WaitForOneFrame;
+
+            Volume = Mathf.Clamp(volume, 0, 100) / 100;
+            RefreshChannels();
 
             if (Microphone is null)
                 AddMic();
@@ -52,7 +58,7 @@ namespace AudioPlayer.API
 
         public static void Stop()
         {
-            if(Microphone is null)
+            if (Microphone is null)
                 return;
 
             Microphone.stop = true;
@@ -60,11 +66,20 @@ namespace AudioPlayer.API
             Log.Debug("Stopped the mic.", AudioPlayer.Singleton.Config.ShowDebugLogs);
         }
 
+        public static void RefreshChannels()
+        {
+            foreach (var channel in Comms.PlayerChannels._openChannelsBySubId.Values.ToList())
+            {
+                Comms.PlayerChannels.Close(channel);
+                Comms.PlayerChannels.Open(channel.TargetId, false, ChannelPriority.High, Volume);
+            }
+        }
+
         public static void OnPlayerJoinedSession(VoicePlayerState player)
         {
             Log.Debug($"A player joined the session. ({player.Name})", AudioPlayer.Singleton.Config.ShowDebugLogs);
 
-            Comms.PlayerChannels.Open(player._name);
+            Comms.PlayerChannels.Open(player._name, false, ChannelPriority.High, Volume);
         }
 
         public static void OnPlayerLeftSession(VoicePlayerState player)

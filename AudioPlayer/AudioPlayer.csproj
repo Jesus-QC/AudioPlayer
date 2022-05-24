@@ -109,9 +109,11 @@
         <Compile Include="API\AudioController.cs" />
         <Compile Include="Config.cs" />
         <Compile Include="Core\Commands\Main.cs" />
+        <Compile Include="Core\Commands\Mute.cs" />
         <Compile Include="Core\Commands\Play.cs" />
         <Compile Include="Core\Commands\Stop.cs" />
         <Compile Include="Core\Commands\Loop.cs" />
+        <Compile Include="Core\Commands\Volume.cs" />
         <Compile Include="Core\Components\CustomMicrophone.cs" />
         <Compile Include="Core\Components\CustomMpegMicrophone.cs" />
         <Compile Include="Core\Events\CustomEvents.cs" />

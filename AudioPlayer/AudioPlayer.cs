@@ -13,7 +13,7 @@ namespace AudioPlayer
         public override string Name { get; } = "AudioPlayer";
         public override string Prefix { get; } = "audio_player";
         public override PluginPriority Priority { get; } = PluginPriority.High;
-        public override Version Version { get; } = new Version(1, 0, 2, 1);
+        public override Version Version { get; } = new Version(1, 0, 3);
         public override Version RequiredExiledVersion { get; } = new Version(5, 2, 1);
 
         public static AudioPlayer Singleton;
