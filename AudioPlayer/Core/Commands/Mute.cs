@@ -41,7 +41,7 @@ namespace AudioPlayer.Core.Commands
         {
             var id = player.Radio.mirrorIgnorancePlayer._playerId;
             AudioController.MutedPlayers.Remove(id);
-            AudioController.Comms.PlayerChannels.Open(id, false, ChannelPriority.High, AudioController.Volume);
+            AudioController.Comms.PlayerChannels.Open(id, false, ChannelPriority.Default, AudioController.Volume);
         }
         
         private static void MutePlayer(Player player)

@@ -71,7 +71,7 @@ namespace AudioPlayer.API
             foreach (var channel in Comms.PlayerChannels._openChannelsBySubId.Values.ToList())
             {
                 Comms.PlayerChannels.Close(channel);
-                Comms.PlayerChannels.Open(channel.TargetId, false, ChannelPriority.High, Volume);
+                Comms.PlayerChannels.Open(channel.TargetId, false, ChannelPriority.Default, Volume);
             }
         }
 
@@ -79,7 +79,7 @@ namespace AudioPlayer.API
         {
             Log.Debug($"A player joined the session. ({player.Name})", AudioPlayer.Singleton.Config.ShowDebugLogs);
 
-            Comms.PlayerChannels.Open(player._name, false, ChannelPriority.High, Volume);
+            Comms.PlayerChannels.Open(player._name, false, ChannelPriority.Default, Volume);
         }
 
         public static void OnPlayerLeftSession(VoicePlayerState player)

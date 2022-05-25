@@ -39,10 +39,10 @@ namespace AudioPlayer.Core.Events
             switch (ev.NextKnownTeam)
             {
                 case SpawnableTeamType.ChaosInsurgency:
-                    AudioPlayer.Singleton.Config.ChaosSpawnMusic.Play(true, true);
+                    AudioPlayer.Singleton.Config.ChaosSpawnMusic.Play(false, true);
                     break;
                 case SpawnableTeamType.NineTailedFox:
-                    AudioPlayer.Singleton.Config.MtfSpawnMusic.Play(true, true);
+                    AudioPlayer.Singleton.Config.MtfSpawnMusic.Play(false, true);
                     break;
             }
         }
