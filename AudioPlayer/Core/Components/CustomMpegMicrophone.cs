@@ -84,8 +84,7 @@ namespace AudioPlayer.Core.Components
 
             if (stop)
                 return true;
-
-            Log.Info(File.Position * File.Channels + " " + File.Length );
+            
             if (File.Position * File.Channels < File.Length - 9216) 
                 return false;
             
