@@ -1,7 +1,6 @@
 ﻿using System;
 using Exiled.API.Features;
 using HarmonyLib;
-using AudioPlayer.API;
 using AudioPlayer.Core.Events;
 using Exiled.API.Enums;
 

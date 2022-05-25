@@ -4,7 +4,6 @@ using AudioPlayer.API;
 using CommandSystem;
 using Dissonance;
 using Exiled.API.Features;
-using Exiled.Permissions.Extensions;
 
 namespace AudioPlayer.Core.Commands
 {

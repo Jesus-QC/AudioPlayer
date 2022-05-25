@@ -3,8 +3,6 @@
  * 
  */
 
-using System;
-
 namespace NLayer.Decoder
 {
     // there's not much we have to do here... table selection, granule count, scalefactor selection

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using AudioPlayer.API;
 using Dissonance.Audio.Capture;
 using NAudio.Wave;
@@ -88,7 +87,7 @@ namespace AudioPlayer.Core.Components
             if (stop)
                 return true;
 
-            if (File.Time.Ticks * 2 < _duration) 
+            if (File.Time.Ticks * File.Channels < _duration) 
                 return false;
             
             if (AudioController.LoopMusic)
