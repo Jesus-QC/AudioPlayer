@@ -40,7 +40,7 @@ namespace AudioPlayer.Core.Components
 
             File.StereoMode = StereoMode.DownmixToMono;
             _format = new WaveFormat(File.SampleRate, 1);
-            _duration = File.Duration.Ticks - 10000;
+            _duration = File.Duration.Ticks - SecondToTicks(1806 * File.Duration.TotalSeconds);
 
             IsRecording = true;
             Latency = TimeSpan.Zero;
@@ -86,16 +86,21 @@ namespace AudioPlayer.Core.Components
 
             if (stop)
                 return true;
-
+            
             if (File.Time.Ticks * File.Channels < _duration) 
                 return false;
             
             if (AudioController.LoopMusic)
                 File.Position = 0;
             else
+            {
+                stop = true;
                 return true;
+            }
 
             return false;
         }
+
+        private static long SecondToTicks(double second) => (long)Math.Round(second * Math.Pow(10, 9) / 100);
     }
 }
