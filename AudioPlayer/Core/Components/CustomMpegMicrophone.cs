@@ -26,8 +26,7 @@ namespace AudioPlayer.Core.Components
         private readonly byte[] _frameBytes = new byte[980 * 4];
         
         private float _elapsedTime;
-        private long _duration;
-        
+
         public WaveFormat StartCapture(string micName)
         {
             if (stop)
@@ -40,7 +39,6 @@ namespace AudioPlayer.Core.Components
 
             File.StereoMode = StereoMode.DownmixToMono;
             _format = new WaveFormat(File.SampleRate, 1);
-            _duration = File.Duration.Ticks - SecondToTicks(1806 * File.Duration.TotalSeconds);
 
             IsRecording = true;
             Latency = TimeSpan.Zero;
@@ -86,8 +84,9 @@ namespace AudioPlayer.Core.Components
 
             if (stop)
                 return true;
-            
-            if (File.Time.Ticks * File.Channels < _duration) 
+
+            Log.Info(File.Position * File.Channels + " " + File.Length );
+            if (File.Position * File.Channels < File.Length - 9216) 
                 return false;
             
             if (AudioController.LoopMusic)
@@ -100,7 +99,5 @@ namespace AudioPlayer.Core.Components
 
             return false;
         }
-
-        private static long SecondToTicks(double second) => (long)Math.Round(second * Math.Pow(10, 9) / 100);
     }
 }
