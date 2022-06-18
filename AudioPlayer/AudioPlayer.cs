@@ -33,6 +33,7 @@ namespace AudioPlayer
             Exiled.Events.Handlers.Server.WaitingForPlayers += _events.OnWaitingForPlayers;
             Exiled.Events.Handlers.Server.RoundStarted += _events.OnStarted;
             Exiled.Events.Handlers.Server.RespawningTeam += _events.OnRespawningTeam;
+            Exiled.Events.Handlers.Cassie.SendingCassieMessage += _events.OnSendingCassieMessage;
             
             base.OnEnabled();
         }
@@ -48,7 +49,8 @@ namespace AudioPlayer
             Exiled.Events.Handlers.Server.WaitingForPlayers -= _events.OnWaitingForPlayers;
             Exiled.Events.Handlers.Server.RoundStarted -= _events.OnStarted;
             Exiled.Events.Handlers.Server.RespawningTeam -= _events.OnRespawningTeam;
-            
+            Exiled.Events.Handlers.Cassie.SendingCassieMessage -= _events.OnSendingCassieMessage;
+
             _events = null;
             
             base.OnDisabled();

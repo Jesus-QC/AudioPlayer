@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using AudioPlayer.Core.Structures;
 using Exiled.API.Interfaces;
 
@@ -16,5 +17,10 @@ namespace AudioPlayer
         public AudioFile LobbyMusic { get; set; } = new AudioFile();
         public AudioFile MtfSpawnMusic { get; set; } = new AudioFile();
         public AudioFile ChaosSpawnMusic { get; set; } = new AudioFile();
+
+        public Dictionary<string, AudioFile> CassieToAudio { get; set; } = new Dictionary<string, AudioFile>
+        {
+            ["1 out of 3 generators activated."] = new AudioFile()
+        };
     }
 }

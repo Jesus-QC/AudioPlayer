@@ -1,5 +1,6 @@
 ﻿using Assets._Scripts.Dissonance;
 using AudioPlayer.API;
+using AudioPlayer.Core.Structures;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using Respawning;
@@ -44,6 +45,15 @@ namespace AudioPlayer.Core.Events
                 case SpawnableTeamType.NineTailedFox:
                     AudioPlayer.Singleton.Config.MtfSpawnMusic.Play(false, true);
                     break;
+            }
+        }
+
+        public void OnSendingCassieMessage(SendingCassieMessageEventArgs ev)
+        {
+            if (AudioPlayer.Singleton.Config.CassieToAudio.TryGetValue(ev.Words.Remove(ev.Words.Length-1), out AudioFile audioFile))
+            {
+                ev.IsAllowed = false;
+                audioFile.Play(false, true);
             }
         }
     }
