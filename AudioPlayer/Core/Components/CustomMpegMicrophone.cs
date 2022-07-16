@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AudioPlayer.API;
 using Dissonance.Audio.Capture;
+using MEC;
 using NAudio.Wave;
 using NLayer;
 using UnityEngine;
@@ -50,14 +51,26 @@ namespace AudioPlayer.Core.Components
             Log.Debug("Stopping capture.", AudioPlayer.Singleton.Config.ShowDebugLogs);
 
             IsRecording = false;
-            
-            if (File == null)
-                return;
-            
-            File.Dispose();
+
+            Timing.RunCoroutine(TryToSafelyReleaseResources());
+        }
+
+        private IEnumerator<float> TryToSafelyReleaseResources()
+        {
+            if (!stop)
+            {
+                yield return Timing.WaitForSeconds(1f);
+                if (IsRecording)
+                {
+                    Log.Debug("Dissonance tried to restart audio.", AudioPlayer.Singleton.Config.ShowDebugLogs);
+                    yield break;
+                }
+            }
+
+            File?.Dispose();
             File = null;
         }
-        
+
         public void Subscribe(IMicrophoneSubscriber listener) => _subscribers.Add(listener);
         public bool Unsubscribe(IMicrophoneSubscriber listener) => _subscribers.Remove(listener);
         
