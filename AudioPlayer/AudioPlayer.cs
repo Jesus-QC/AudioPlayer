@@ -1,4 +1,5 @@
 ﻿using System;
+using AudioPlayer.API;
 using Exiled.API.Features;
 using HarmonyLib;
 using AudioPlayer.Core.Events;
@@ -12,8 +13,8 @@ namespace AudioPlayer
         public override string Name { get; } = "AudioPlayer";
         public override string Prefix { get; } = "audio_player";
         public override PluginPriority Priority { get; } = PluginPriority.High;
-        public override Version Version { get; } = new Version(1, 0, 3, 3);
-        public override Version RequiredExiledVersion { get; } = new Version(5, 2, 1);
+        public override Version Version { get; } = new (1, 1, 0);
+        public override Version RequiredExiledVersion { get; } = new (5, 2, 2);
 
         public static AudioPlayer Singleton;
 
@@ -33,6 +34,8 @@ namespace AudioPlayer
             Exiled.Events.Handlers.Server.WaitingForPlayers += _events.OnWaitingForPlayers;
             Exiled.Events.Handlers.Server.RoundStarted += _events.OnStarted;
             Exiled.Events.Handlers.Server.RespawningTeam += _events.OnRespawningTeam;
+
+            AudioEvents.AudioStopped += _events.OnAudioStopped;
             
             base.OnEnabled();
         }
@@ -44,6 +47,8 @@ namespace AudioPlayer
 
             Singleton = null;
 
+            AudioEvents.AudioStopped -= _events.OnAudioStopped;
+            
             Exiled.Events.Handlers.Server.RestartingRound -= _events.OnRestartingRound;
             Exiled.Events.Handlers.Server.WaitingForPlayers -= _events.OnWaitingForPlayers;
             Exiled.Events.Handlers.Server.RoundStarted -= _events.OnStarted;

@@ -3,6 +3,7 @@ using AudioPlayer.API;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using Respawning;
+using UnityEngine;
 
 namespace AudioPlayer.Core.Events
 {
@@ -25,7 +26,10 @@ namespace AudioPlayer.Core.Events
             Server.Host.Radio.Network_syncPrimaryVoicechatButton = true;
             Server.Host.DissonanceUserSetup.NetworkspeakingFlags = SpeakingFlags.IntercomAsHuman;
 
-            AudioPlayer.Singleton.Config.LobbyMusic.Play(true, true);
+            var playlist = AudioPlayer.Singleton.Config.LobbyPlaylist;
+            
+            if (playlist.Count > 0)
+                playlist[Random.Range(0, playlist.Count)].Play(false, true);
         }
 
         public void OnStarted()
@@ -45,6 +49,17 @@ namespace AudioPlayer.Core.Events
                     AudioPlayer.Singleton.Config.MtfSpawnMusic.Play(false, true);
                     break;
             }
+        }
+
+        public void OnAudioStopped()
+        {
+            if (!Round.IsLobby || !AudioController.AutomaticMusic) 
+                return;
+            
+            var playlist = AudioPlayer.Singleton.Config.LobbyPlaylist;
+            
+            if (playlist.Count > 0)
+                playlist[Random.Range(0, playlist.Count)].Play(false, true);
         }
     }
 }

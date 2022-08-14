@@ -11,7 +11,7 @@ namespace AudioPlayer.Core.Structures
 
         public void Play(bool loop = false, bool automatic = false)
         {
-            Timing.RunCoroutine(AudioController.PlayFromFile(Path, Volume, loop, automatic));
+            AudioController.PlayFromFile(Path, Volume, loop, automatic);
         }
     }
 }

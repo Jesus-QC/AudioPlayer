@@ -21,7 +21,12 @@ namespace AudioPlayer.API
 
         public static readonly List<string> MutedPlayers = new List<string>();
 
-        public static IEnumerator<float> PlayFromFile(string path, float volume = 100, bool loop = false, bool automatic = false)
+        public static void PlayFromFile(string path, float volume = 100, bool loop = false, bool automatic = false)
+        {
+            Timing.RunCoroutine(Play(path, volume, loop, automatic));
+        }
+        
+        private static IEnumerator<float> Play(string path, float volume = 100, bool loop = false, bool automatic = false)
         {
             if(string.IsNullOrWhiteSpace(path))
                 yield break;

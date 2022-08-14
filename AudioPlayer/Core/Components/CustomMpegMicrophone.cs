@@ -20,9 +20,9 @@ namespace AudioPlayer.Core.Components
         public MpegFile File;
         public bool stop;
         
-        private readonly List<IMicrophoneSubscriber> _subscribers = new List<IMicrophoneSubscriber>();
+        private readonly List<IMicrophoneSubscriber> _subscribers = new ();
 
-        private WaveFormat _format = new WaveFormat(44100, 1);
+        private WaveFormat _format = new (44100, 1);
         private readonly float[] _frame = new float[980];
         private readonly byte[] _frameBytes = new byte[980 * 4];
         
@@ -43,6 +43,8 @@ namespace AudioPlayer.Core.Components
 
             IsRecording = true;
             Latency = TimeSpan.Zero;
+            
+            AudioEvents.OnAudioStarted();
             return _format;
         }
 
@@ -69,6 +71,8 @@ namespace AudioPlayer.Core.Components
 
             File?.Dispose();
             File = null;
+            
+            AudioEvents.OnAudioStopped();
         }
 
         public void Subscribe(IMicrophoneSubscriber listener) => _subscribers.Add(listener);
@@ -100,9 +104,12 @@ namespace AudioPlayer.Core.Components
             
             if (File.Position * File.Channels < File.Length - 9216) 
                 return false;
-            
+
             if (AudioController.LoopMusic)
+            {
                 File.Position = 0;
+                AudioEvents.OnAudioLooped();
+            }
             else
             {
                 stop = true;

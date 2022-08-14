@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using AudioPlayer.Core.Structures;
 using Exiled.API.Interfaces;
 
@@ -13,8 +14,8 @@ namespace AudioPlayer
         public string AudioName { get; set; } = null;
 
         [Description("Special Events Automatic Music, blank to disable.")]
-        public AudioFile LobbyMusic { get; set; } = new AudioFile();
-        public AudioFile MtfSpawnMusic { get; set; } = new AudioFile();
-        public AudioFile ChaosSpawnMusic { get; set; } = new AudioFile();
+        public List<AudioFile> LobbyPlaylist { get; set; } = new () { new AudioFile() };
+        public AudioFile MtfSpawnMusic { get; set; } = new ();
+        public AudioFile ChaosSpawnMusic { get; set; } = new ();
     }
 }

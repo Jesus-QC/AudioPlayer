@@ -33,8 +33,8 @@ namespace AudioPlayer.Core.Commands
                 response = $"No files exist inside that path.\nPath: {path}";
                 return false;
             }
-            
-            Timing.RunCoroutine(AudioController.PlayFromFile(path));
+
+            AudioController.PlayFromFile(path);
             response = "Playing...";
             return true;
         }
