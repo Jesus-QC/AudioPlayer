@@ -1,65 +1,72 @@
-﻿using Assets._Scripts.Dissonance;
+﻿using System.Collections.Generic;
 using AudioPlayer.API;
+using AudioPlayer.Core.Structures;
+using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
+using Mirror;
 using Respawning;
 using UnityEngine;
 
-namespace AudioPlayer.Core.Events
+namespace AudioPlayer.Core.Events;
+
+public class CustomEvents
 {
-    public class CustomEvents
+    private NetworkIdentity _manager;
+
+    public void OnRestartingRound()
     {
-        public void OnRestartingRound()
-        {
-            AudioController.Comms.OnPlayerJoinedSession -= AudioController.OnPlayerJoinedSession;
-            AudioController.Comms.OnPlayerLeftSession -= AudioController.OnPlayerLeftSession;
-        } 
+        AudioController.Stop();
+        AudioController.Channel = null;
+    }
 
-        public void OnWaitingForPlayers()
-        {
-            AudioController.Comms.OnPlayerJoinedSession += AudioController.OnPlayerJoinedSession;
-            AudioController.Comms.OnPlayerLeftSession += AudioController.OnPlayerLeftSession;
-
-            if (!string.IsNullOrWhiteSpace(AudioPlayer.Singleton.Config.AudioName))
-                Server.Host.ReferenceHub.nicknameSync.Network_myNickSync = AudioPlayer.Singleton.Config.AudioName;
+    public void OnWaitingForPlayers()
+    {
+        List<AudioFile> playlist = AudioPlayer.Singleton.Config.LobbyPlaylist;
             
-            Server.Host.Radio.Network_syncPrimaryVoicechatButton = true;
-            Server.Host.DissonanceUserSetup.NetworkspeakingFlags = SpeakingFlags.IntercomAsHuman;
-
-            var playlist = AudioPlayer.Singleton.Config.LobbyPlaylist;
+        if (playlist.Count > 0)
+            playlist[Random.Range(0, playlist.Count)].Play(false, true);
             
-            if (playlist.Count > 0)
-                playlist[Random.Range(0, playlist.Count)].Play(false, true);
-        }
+        _manager = GameObject.Find("GameManager").GetComponent<NetworkIdentity>();
+    }
 
-        public void OnStarted()
-        {
-            if (AudioController.AutomaticMusic)
-                AudioController.Stop();
-        }
+    public void OnVerified(VerifiedEventArgs ev)
+    {
+        ev.Player.Connection.Send(new ObjectDestroyMessage {netId = _manager.netId});
+        MirrorExtensions.SendSpawnMessageMethodInfo.Invoke(null, new object[] { _manager, ev.Player.Connection });
+    }
 
-        public void OnRespawningTeam(RespawningTeamEventArgs ev)
-        {
-            switch (ev.NextKnownTeam)
-            {
-                case SpawnableTeamType.ChaosInsurgency:
-                    AudioPlayer.Singleton.Config.ChaosSpawnMusic.Play(false, true);
-                    break;
-                case SpawnableTeamType.NineTailedFox:
-                    AudioPlayer.Singleton.Config.MtfSpawnMusic.Play(false, true);
-                    break;
-            }
-        }
+    public void OnStarted()
+    {
+        if (AudioController.AutomaticMusic)
+            AudioController.Stop();
+        
+        AudioPlayer.Singleton.Config.RoundStartClip.Play(false, true);
+    }
 
-        public void OnAudioStopped()
+    public void OnRespawningTeam(RespawningTeamEventArgs ev)
+    {
+        switch (ev.NextKnownTeam)
         {
-            if (!Round.IsLobby || !AudioController.AutomaticMusic) 
-                return;
+            case SpawnableTeamType.ChaosInsurgency:
+                AudioPlayer.Singleton.Config.ChaosSpawnClip.Play(false, true);
+                break;
+            case SpawnableTeamType.NineTailedFox:
+                AudioPlayer.Singleton.Config.MtfSpawnClip.Play(false, true);
+                break;
+        }
+    }
+
+    public void OnEnded(RoundEndedEventArgs ev) => AudioPlayer.Singleton.Config.RoundEndClip.Play(false, true);
+
+    public void OnAudioStopped()
+    {
+        if (!Round.IsLobby || !AudioController.AutomaticMusic) 
+            return;
             
-            var playlist = AudioPlayer.Singleton.Config.LobbyPlaylist;
+        List<AudioFile> playlist = AudioPlayer.Singleton.Config.LobbyPlaylist;
             
-            if (playlist.Count > 0)
-                playlist[Random.Range(0, playlist.Count)].Play(false, true);
-        }
+        if (playlist.Count > 0)
+            playlist[Random.Range(0, playlist.Count)].Play(false, true);
     }
 }

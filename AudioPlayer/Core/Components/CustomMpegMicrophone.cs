@@ -4,11 +4,10 @@ using AudioPlayer.API;
 using Dissonance.Audio.Capture;
 using MEC;
 using NAudio.Wave;
-using NLayer;
 using UnityEngine;
 using Log = Exiled.API.Features.Log;
 
-namespace AudioPlayer.Core.Components
+/*namespace AudioPlayer.Core.Components
 {
     // Streaming audio as a fake microphone.
     // https://placeholder-software.co.uk/dissonance/docs/Tutorials/Custom-Microphone-Capture.html#step-4-file-streaming
@@ -87,7 +86,7 @@ namespace AudioPlayer.Core.Components
                 _elapsedTime -= 0.022f;
                 
                 // Read bytes from file
-                var readLength = File.ReadSamples(_frameBytes, 0, _frameBytes.Length);
+                int readLength = File.ReadSamples(_frameBytes, 0, _frameBytes.Length);
 
                 // Zero the entire buffer so bits not written to will be silent
                 Array.Clear(_frame, 0, _frame.Length);
@@ -95,7 +94,7 @@ namespace AudioPlayer.Core.Components
                 // Copy the bytes that were read into the audio buffer as floats
                 Buffer.BlockCopy(_frameBytes, 0, _frame, 0, readLength);
 
-                foreach (var subscriber in _subscribers)
+                foreach (IMicrophoneSubscriber subscriber in _subscribers)
                     subscriber.ReceiveMicrophoneData(new ArraySegment<float>(_frame), _format);
             }
 
@@ -119,4 +118,4 @@ namespace AudioPlayer.Core.Components
             return false;
         }
     }
-}
+}*/
