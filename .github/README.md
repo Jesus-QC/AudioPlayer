@@ -1,5 +1,7 @@
 # AudioPlayer
 
+## Moving plugin to nwapi
+
 ExiledSL mod that plays audio.
 
 It also lets you configure automatic music for certain events (lobby, mtf spawn, chaos spawn).
